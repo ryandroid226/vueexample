@@ -3,6 +3,8 @@ const { VueLoaderPlugin } = require('vue-loader')
 const path = require('path');
 const isDev = (process.env.NODE_ENV = 'development')
 
+const stylesHandler = 'style-loader';
+
 module.exports = {
     entry: {
         public: [
@@ -18,6 +20,10 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /\.css$/i,
+                use: [stylesHandler, 'css-loader', 'postcss-loader'],
             }
         ]
     },
