@@ -170,9 +170,11 @@ class Vueexample {
 
 		$plugin_public = new Vueexample_Public( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'template_redirect', $plugin_public, 'url_rewrite_templates' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_filter( 'generate_rewrite_rules', $plugin_public, 'rewrite_rules' );
+		$this->loader->add_filter( 'query_vars', $plugin_public, 'register_query_var' );
 	}
 
 	/**

@@ -96,8 +96,29 @@ class Vueexample_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/vueexample-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'dist/public/js/vueexample_public.bundle.js', array(), $this->version, true );
 
+	}
+
+	public function rewrite_rules( $rewrite ) {
+		$rewrite->rules = array_merge(
+			['vueexample/?$' => 'index.php?isvue=1'],
+			$rewrite->rules
+		);
+	}
+
+	public function register_query_var( $vars ) {
+		$vars[] = 'isvue';
+	
+		return $vars;
+	}
+
+	public function url_rewrite_templates() {
+		$isvue = intval( get_query_var( 'isvue' ) );
+		if ( $isvue ) {
+			include plugin_dir_path( __FILE__ ) . 'templates/vueexample.php';
+			die;
+		}
 	}
 
 }

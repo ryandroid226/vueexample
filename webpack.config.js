@@ -6,10 +6,10 @@ const isDev = (process.env.NODE_ENV = 'development')
 module.exports = {
     entry: {
         public: [
-            path.resolve(__dirname, './public/js/public.js'),
+            path.resolve(__dirname, './public/js/vueexample-public.js'),
             path.resolve(__dirname, './public/js/somevuepage/somevuepage.js') //Example of extra vue js being added in
         ],
-        admin: path.resolve(__dirname, './admin/js/admin.js')
+        admin: path.resolve(__dirname, './admin/js/vueexample-admin.js')
     },
     devtool: isDev ? 'inline-source-map' : false,
     mode: process.env.NODE_ENV,
