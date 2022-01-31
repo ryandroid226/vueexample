@@ -1,33 +1,11 @@
 <?php
 
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://ryanholt.dev
- * @since      1.0.0
- *
- * @package    Vueexample
- * @subpackage Vueexample/includes
- */
+namespace VueExample\Lib;
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Vueexample
- * @subpackage Vueexample/includes
- * @author     Ryan Holt <me@ryanholt.dev>
- */
-class Vueexample {
+use VueExample\Admin\Admin;
+use VueExample\General\General;
+
+class Bootstrap {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +13,7 @@ class Vueexample {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Vueexample_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -66,7 +44,8 @@ class Vueexample {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		if ( defined( 'VUEEXAMPLE_VERSION' ) ) {
 			$this->version = VUEEXAMPLE_VERSION;
 		} else {
@@ -78,7 +57,6 @@ class Vueexample {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -97,33 +75,9 @@ class Vueexample {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
-
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-vueexample-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-vueexample-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-vueexample-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-vueexample-public.php';
-
-		$this->loader = new Vueexample_Loader();
-
+	private function load_dependencies(): void
+	{
+		$this->loader = new Loader();
 	}
 
 	/**
@@ -135,12 +89,10 @@ class Vueexample {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Vueexample_i18n();
-
+	private function set_locale(): void
+	{
+		$plugin_i18n = new I18n();
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -150,13 +102,12 @@ class Vueexample {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
-
-		$plugin_admin = new Vueexample_Admin( $this->get_plugin_name(), $this->get_version() );
+	private function define_admin_hooks(): void
+	{
+		$plugin_admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -166,9 +117,9 @@ class Vueexample {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new Vueexample_Public( $this->get_plugin_name(), $this->get_version() );
+	private function define_public_hooks(): void
+	{
+		$plugin_public = new General( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'template_redirect', $plugin_public, 'url_rewrite_templates' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
@@ -182,7 +133,8 @@ class Vueexample {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run(): void
+	{
 		$this->loader->run();
 	}
 
@@ -193,7 +145,8 @@ class Vueexample {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name(): string
+	{
 		return $this->plugin_name;
 	}
 
@@ -201,9 +154,10 @@ class Vueexample {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Vueexample_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader(): Loader
+	{
 		return $this->loader;
 	}
 
@@ -213,7 +167,8 @@ class Vueexample {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version(): string
+	{
 		return $this->version;
 	}
 

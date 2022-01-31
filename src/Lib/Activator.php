@@ -1,7 +1,8 @@
 <?php
 
+namespace VueExample\Lib;
 /**
- * Fired during plugin deactivation
+ * Fired during plugin activation
  *
  * @link       https://ryanholt.dev
  * @since      1.0.0
@@ -11,16 +12,16 @@
  */
 
 /**
- * Fired during plugin deactivation.
+ * Fired during plugin activation.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
  * @package    Vueexample
  * @subpackage Vueexample/includes
  * @author     Ryan Holt <me@ryanholt.dev>
  */
-class Vueexample_Deactivator {
+class Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +30,7 @@ class Vueexample_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function activate() {
 
 	}
 

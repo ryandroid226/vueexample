@@ -1,5 +1,7 @@
 <?php
 
+namespace VueExample\Lib;
+
 /**
  * Register all actions and filters for the plugin
  *
@@ -21,7 +23,7 @@
  * @subpackage Vueexample/includes
  * @author     Ryan Holt <me@ryanholt.dev>
  */
-class Vueexample_Loader {
+class Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -117,11 +119,11 @@ class Vueexample_Loader {
 	public function run() {
 
 		foreach ( $this->filters as $hook ) {
-			add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+			\add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
 		foreach ( $this->actions as $hook ) {
-			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
+			\add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
 	}

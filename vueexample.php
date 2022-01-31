@@ -24,6 +24,11 @@
  * Text Domain:       vueexample
  * Domain Path:       /languages
  */
+require_once __DIR__ . '/vendor/autoload.php';
+
+use VueExample\Lib\Activator;
+use VueExample\Lib\Deactivator;
+use VueExample\Lib\Bootstrap;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -37,46 +42,29 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'VUEEXAMPLE_VERSION', '1.0.0' );
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-vueexample-activator.php
- */
-function activate_vueexample() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-vueexample-activator.php';
-	Vueexample_Activator::activate();
+class VueExample
+{
+	public function run(): void
+	{
+		$plugin = new Bootstrap();
+		$plugin->run();
+	}
+
+	public function activate(): void
+	{
+		Activator::activate();
+	}
+
+	public function deactivate(): void
+	{
+		Deactivator::deactivate();
+	}
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-vueexample-deactivator.php
- */
-function deactivate_vueexample() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-vueexample-deactivator.php';
-	Vueexample_Deactivator::deactivate();
-}
+$vueExample = new VueExample();
 
-register_activation_hook( __FILE__, 'activate_vueexample' );
-register_deactivation_hook( __FILE__, 'deactivate_vueexample' );
+register_activation_hook( __FILE__, array($vueExample, 'activate') );
+register_deactivation_hook( __FILE__, array($vueExample, 'deactivate') );
 
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-vueexample.php';
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_vueexample() {
-
-	$plugin = new Vueexample();
-	$plugin->run();
-
-}
-run_vueexample();
+$vueExample->run();

@@ -1,7 +1,7 @@
 module.exports = {
   content: [
-    "./public/**/*.{html,js,vue}",
-    "./admin/**/*.{html,js,vue}",
+    "./src/General/**/*.{html,js,vue}",
+    "./src/Admin/**/*.{html,js,vue}",
   ],
   theme: {
     extend: {},

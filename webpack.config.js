@@ -8,10 +8,10 @@ const stylesHandler = 'style-loader';
 module.exports = {
     entry: {
         public: [
-            path.resolve(__dirname, './public/js/vueexample-public.js'),
-            path.resolve(__dirname, './public/js/somevuepage/somevuepage.js') //Example of extra vue js being added in
+            path.resolve(__dirname, './src/General/js/vueexample-public.js'),
+            path.resolve(__dirname, './src/General/js/somevuepage/somevuepage.js') //Example of extra vue js being added in
         ],
-        admin: path.resolve(__dirname, './admin/js/vueexample-admin.js')
+        admin: path.resolve(__dirname, './src/Admin/js/vueexample-admin.js')
     },
     devtool: isDev ? 'inline-source-map' : false,
     mode: process.env.NODE_ENV,
@@ -29,7 +29,7 @@ module.exports = {
     },
     output: {
         filename: '[name]/js/vueexample_[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'src/dist'),
         clean: true
     },
     optimization: {

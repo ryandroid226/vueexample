@@ -1,0 +1,19 @@
+{
+    "name": "ryanholt/vueexample",
+    "description": "An example of using vue inside of a Wordpress plugin",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "VueExample\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ryan Holt",
+            "email": "rholt@getuwired.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
